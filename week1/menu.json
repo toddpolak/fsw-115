@@ -1,0 +1,17 @@
+{
+    "Appetizers": [
+        {
+            "name": "Sliders",
+            "ingredients": ["Ground Sirloin", "Swiss Cheese", "Lettuce", "Tomato", "Red Onion", "Bread"],
+            "description": "Mini Cheeseburgers"
+        },
+        {
+            "name": "Fried Zucchini",
+            "ingredients": ["Zucchini", "Bread Crumbs", "Parmesan Cheese", "Italian Seasoning"],
+            "description": "Crispy Parmesan Fried Zucchini"
+        }
+    ],
+    "Cold Sandwiches": [
+
+    ]
+}
