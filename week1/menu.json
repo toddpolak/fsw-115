@@ -12,6 +12,51 @@
         }
     ],
     "Cold Sandwiches": [
-
+        {
+            "name": "Tuna on Rye",
+            "ingredients": ["Albacore Tuna", "Fresh Celery", "Red Onion", "American Cheese", "Rye Bread"],
+            "description": "Fresh Tuna on Toasted Rye"
+        },
+        {
+            "name": "Turkey Club",
+            "ingredients": ["Roasted Turkey", "Lettuce", "Tomato", "Red Onion", "American Cheese", "Croissant Roll"],
+            "description": "Roasted Turkey Breast Club Sandwich"
+        }
+    ],
+    "Hot Sandwiches": [
+        {
+            "name": "Bacon Cheeseburger",
+            "ingredients": ["Ground Sirloin", "Bacon", "American Cheese", "Tomato", "Red Onion", "Lettuce", "Bread"],
+            "description": "Ground Sirloin Bacon Cheeseburger on a Toasted Bun"
+        },
+        {
+            "name": "Meatball Sandwich",
+            "ingredients": ["Ground Sirloin", "White Onion", "Ketchup", "Italian Seasoning", "Wheat Roll"],
+            "description": "Ground Sirloin Meatballs with a Sprinkle of Parmesan Cheese on a Toasted Wheat Roll"
+        }
+    ],
+    "Desserts": [
+        {
+            "name": "Chocolate Mousse Cake",
+            "ingredients": ["Chocolate Cake", "Chocolate Whipped Cream", "Chocolate Mousse", "Chocolate Chips"],
+            "description": "Silky, Smoothe Double Chocolate Mousse Cake"
+        },
+        {
+            "name": "Ice Cream Sundae",
+            "ingredients": ["Vanilla Ice Cream", "Chocolate Syrup", "Crushed Walnuts", "Whipped Cream", "Red Cherry"],
+            "description": "French Vanilla Ice Cream with Chocolate Syrup, Whipped Cream, Nuts, Topped with a Cherry"
+        }
+    ],
+    "Drinks": [
+        {
+            "name": "Peach Tea",
+            "ingredients": ["Fresh Peaches", "Brewed Sun Tea", "Sugar"],
+            "description": "Ice Cold Sun Brewed Peach Tea"
+        },
+        {
+            "name": "Cola",
+            "ingredients": ["Carbonated Water", "Corn Syrup", "Carmel Color", "Caffeine"],
+            "description": "Ice Cold Coca-Cola"
+        }
     ]
 }
