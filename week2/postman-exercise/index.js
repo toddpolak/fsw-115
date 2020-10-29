@@ -3,8 +3,8 @@ const obj = JSON.parse(json);
 
 for (let i = 0; i < obj.photos.length; i++) {
     console.log(obj.photos[i].camera.full_name)
-    //let content = document.getElementById('content');
-    //let img = document.createElement('img');
-    //img.src = obj.photos[i].img_src;
-    //content.appendChild(img);
+    let content = document.getElementById('content');
+    let img = document.createElement('img');
+    img.src = obj.photos[i].img_src;
+    content.appendChild(img);
 }
