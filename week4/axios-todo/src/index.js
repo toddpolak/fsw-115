@@ -9,8 +9,8 @@ axios.get("https://api.vschool.io/toddpolak/todo/")
         for (let i = 0; i < response.data.length; i++) {
 
             let li = document.createElement('li')
-            let title = document.createElement('h2')
-            let description = document.createElement('h3')
+            let title = document.createElement('h3')
+            let description = document.createElement('h4')
             let img = document.createElement('img')
 
             title.textContent = response.data[i].title
