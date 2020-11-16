@@ -1,0 +1,27 @@
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+footer {
+    margin-top: 300px;
+}
+
+.form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+.wrapper {
+    width: 100%;
+    display: "flex";
+    justify-content: center;
+}
+
+#content {
+    width: 500px;
+    margin: 0 auto;
+}

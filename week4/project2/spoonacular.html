@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="./css/style.css">
+        <title>Spoonacular API</title>
+    </head>
+    <body>
+        <header>
+            <h1>Project 1 - Multiple Requests</h1>
+            <a href="index.html">Home</a>
+            <a href="spoonacular.html">Spoonacular</a>
+            <a href="starwars.html">Star Wars</a>
+        </header>
+        <main>
+            <div class="wrapper">
+                <div class="form">
+                    <h2>Spoonacular</h2>
+                    <form name="spoonacular">
+                        <select name="cuisine" id="cuisine">
+                            <option>- Select Cuisine -</option>
+                            <option value="chinese">Chinese</option>
+                            <option value="italian">Italian</option>
+                            <option value="mexican">Mexican</option>
+                            <option value="american">American</option>
+                            <option value="french">French</option>
+                            <option value="irish">Irish</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="british">British</option>
+                            <option value="german">German</option>
+                            <option value="middle eastern">Middle Eastern</option>
+                            <option value="cajun">Cajun</option>
+                        </select>
+                        <button id="view" name="submit">View</button>
+                    </form>
+                </div>
+                <div id="content"></div>
+            </div>
+        </main>
+        <footer style="text-align: center">
+            <span>&copy; 2020 Webdev Student</span>
+        </footer>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>
+        <script src="./src/spoontacular.js"></script>
+    </body>
+</html>
