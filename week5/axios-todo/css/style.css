@@ -10,7 +10,19 @@ main {
     width: 100%;
 }
 
+main div {
+    border: 1px solid black;
+    width: 100%;
+}
+
+.todoForm {
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid black;
+}
+
 #content {
-    width: 50%;
+    width: 80%;
     margin: auto;
+    border: 3px solid black;
 }
