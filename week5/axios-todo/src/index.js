@@ -13,8 +13,6 @@ function clearTodos() {
     }
 }
 
-
-
 function showTodos(response) {
 
     for (let i = 0; i < response.data.length; i++) {
