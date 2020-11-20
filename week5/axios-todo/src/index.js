@@ -37,6 +37,9 @@ axios.get("https://api.vschool.io/toddpolak/todo/")
 todoForm.addEventListener("submit", function(event) {
     event.preventDefault()
     
+    let newTodo = {
+        title: todoForm.title.value,
+        
+    }
 
-    
 })
