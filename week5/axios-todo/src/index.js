@@ -2,7 +2,7 @@ const todoForm = document.todoForm
 const content = document.getElementById('content')
 const ol = document.createElement('ol')
 
-axios.get("https://api.vschool.io/toddpolak/todo/")
+axios.get('https://api.vschool.io/toddpolak/todo/')
     .then(response => {
 
         for (let i = 0; i < response.data.length; i++) {
@@ -39,7 +39,12 @@ todoForm.addEventListener("submit", function(event) {
     
     let newTodo = {
         title: todoForm.title.value,
-        
+        price: todoForm.price.value,
+        description: todoForm.description.value,
+        imageUrl: todoForm.imageUrl.value
     }
 
+    axios.post('https://api.vschool.io/toddpolak/todo/', newTodo)
+        .then(response => console.log(response.data))
+        .catch(error => console.log(error))
 })
