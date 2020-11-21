@@ -1,11 +1,13 @@
 const todoForm = document.todoForm
 const content = document.getElementById('content')
 
-axios.get('https://api.vschool.io/toddpolak/todo/')
+function getTodos() {
+    axios.get('https://api.vschool.io/toddpolak/todo/')
     .then(response => {
         showTodos(response)
     })
     .catch(error => console.log(error))
+}
 
 function clearTodos() {
     while(content.firstChild){
@@ -15,62 +17,39 @@ function clearTodos() {
 
 function showTodos(response) {
 
+    clearTodos()
+
     for (let i = 0; i < response.data.length; i++) {
 
-        let ol = document.createElement('ol')
-        let li = document.createElement('li')
+        let completed = response.data[i].completed
+        let id = response.data[i]._id
 
-
-
-
-
-
-
-        let spanTitle = document.createElement('span')
-        let spanTitleEdit = document.createElement('span')
         let title = document.createElement('h3')
         title.textContent = response.data[i].title
 
-        let titleEdit = document.createElement('input')
-        titleEdit.setAttribute('name', 'titleEdit')
-        titleEdit.setAttribute('value', response.data[i].title)
-
-        let editBtn = document.createElement('button')
-        editBtn.setAttribute('value', 'Edit')
-
-        if (response.data[i].completed) {
+        if (completed) {
             title.style.textDecorationLine = 'line-through'
         }
-        spanTitle.appendChild(title)
-        spanTitleEdit.appendChild(titleEdit)
-        
-        li.appendChild(spanTitle)
-        li.appendChild(spanTitleEdit)
-
-
-
-
-
-
 
         let description = document.createElement('h4')
         let img = document.createElement('img')
-
         let mainDiv = document.createElement('div')
         let leftDiv = document.createElement('div')
         let rightDiv = document.createElement('div')
-
         let checkbox = document.createElement('input')
+
         checkbox.type = 'checkbox'
         checkbox.name = 'completed'
         checkbox.checked = response.data[i].completed
 
         checkbox.onclick = function() {
-            alert('click')
+            axios.put('https://api.vschool.io/toddpolak/todo/' + id, {'completed': !completed})
+                .then(response => {
+                    getTodos()
+                })
+                .catch(error => console.log(error))
         }
 
-        
-    
         mainDiv.style.border = "3px dashed black"
         mainDiv.style.width = "600px"
 
@@ -84,36 +63,26 @@ function showTodos(response) {
         rightDiv.style.margin = "0px"
         rightDiv.style.width = "100px"
 
-
-
         description.textContent = response.data[i].description
 
-        console.log(response.data[i].title, 'image: ' + response.data[i].imgUrl)
+        img.src = response.data[i].imgUrl
+        img.style.width = "60px"
+        img.style.height = "60px"
 
-        if (response.data[i].imgUrl !== undefined) {
-            img.src = response.data[i].imgUrl
-            img.style.width = "70px"
-            img.style.height = "70px"
-        }
+        leftDiv.appendChild(checkbox)
+        leftDiv.appendChild(title)
+        leftDiv.appendChild(description)
 
-
-
-        if (response.data[i].description !== undefined) {
-            li.appendChild(description)
-        }
-
-        li.appendChild(checkbox)
-
-        ol.appendChild(li)
-
-        leftDiv.appendChild(ol)
         rightDiv.appendChild(img)
+
         mainDiv.appendChild(leftDiv)
         mainDiv.appendChild(rightDiv)
-
+        
         content.appendChild(mainDiv)
     }
 }
+
+getTodos()
 
 todoForm.addEventListener("submit", function(event) {
     event.preventDefault()
