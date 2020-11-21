@@ -15,16 +15,16 @@
                 <div class="todoForm">
                     <form name="todoForm">
                         <input name="title" placeholder="Title" />
-                        <input name="price" placeholder="Price" />
-                        <input name="description" placeholder="Description" />
+                        <input type="number" name="price" placeholder="Price" />
+                        <textarea name="description" rows="5" cols="60" placeholder="Description"></textarea>
                         <input name="imageUrl" placeholder="Image URL" />
                         <button>Add Todo</button>
                     </form>
                 </div>
+                <div id="content"></div>
             </div>
-            <div id="content"></div>
         </main>
-        <footer style="text-align: center">
+        <footer>
             <span>&copy; 2020 Webdev Student</span>
         </footer>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.js"></script>

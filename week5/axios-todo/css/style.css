@@ -8,21 +8,47 @@ header {
 
 main {
     width: 100%;
+    border: 1px solid black;
 }
 
 main div {
-    border: 1px solid black;
-    width: 100%;
+    padding: 10px;
+    border: 1px solid red;
+    width: 500px;
+    margin: auto;
 }
 
 .todoForm {
-    width: 300px;
+    padding: 20px;
+    width: 500px;
     margin: 0 auto;
     border: 1px solid black;
 }
 
 #content {
-    width: 80%;
+    width: 500px;
     margin: auto;
     border: 3px solid black;
 }
+
+input[name="title"] {
+    width: 300px;
+}
+
+input[name="price"] {
+    width: 123px;
+}
+
+textarea[name="description"] {
+    resize: none;
+}
+
+input[name="imageUrl"] {
+    width: 358px;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+}
+

@@ -25,18 +25,20 @@ function showTodos(response) {
         let id = response.data[i]._id
 
         let title = document.createElement('h3')
-        title.textContent = response.data[i].title
-
-        if (completed) {
-            title.style.textDecorationLine = 'line-through'
-        }
-
         let description = document.createElement('h4')
         let img = document.createElement('img')
         let mainDiv = document.createElement('div')
         let leftDiv = document.createElement('div')
         let rightDiv = document.createElement('div')
         let checkbox = document.createElement('input')
+        let deleteBtn = document.createElement('button')
+
+        title.textContent = response.data[i].title
+
+        if (completed) {
+            title.style.textDecorationStyle = "double"
+            title.style.textDecorationLine = 'line-through'
+        }
 
         checkbox.type = 'checkbox'
         checkbox.name = 'completed'
@@ -44,6 +46,15 @@ function showTodos(response) {
 
         checkbox.onclick = function() {
             axios.put('https://api.vschool.io/toddpolak/todo/' + id, {'completed': !completed})
+                .then(response => {
+                    getTodos()
+                })
+                .catch(error => console.log(error))
+        }
+
+        deleteBtn.textContent = "Delete"
+        deleteBtn.onclick = () => {
+            axios.delete('https://api.vschool.io/toddpolak/todo/' + id)
                 .then(response => {
                     getTodos()
                 })
@@ -65,13 +76,16 @@ function showTodos(response) {
 
         description.textContent = response.data[i].description
 
-        img.src = response.data[i].imgUrl
-        img.style.width = "60px"
-        img.style.height = "60px"
+        if (response.data[i].imgUrl !== undefined) {
+            img.src = response.data[i].imgUrl
+            img.style.width = "60px"
+            img.style.height = "60px"
+        }
 
-        leftDiv.appendChild(checkbox)
         leftDiv.appendChild(title)
         leftDiv.appendChild(description)
+        leftDiv.appendChild(checkbox)
+        leftDiv.appendChild(deleteBtn)
 
         rightDiv.appendChild(img)
 
@@ -96,7 +110,7 @@ todoForm.addEventListener("submit", function(event) {
 
     axios.post('https://api.vschool.io/toddpolak/todo/', newTodo)
         .then(response => {
-        showTodos(response)
+            getTodos()
     })
         .catch(error => console.log(error))
 })
