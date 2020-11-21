@@ -19,7 +19,40 @@ function showTodos(response) {
 
         let ol = document.createElement('ol')
         let li = document.createElement('li')
+
+
+
+
+
+
+
+        let spanTitle = document.createElement('span')
+        let spanTitleEdit = document.createElement('span')
         let title = document.createElement('h3')
+        title.textContent = response.data[i].title
+
+        let titleEdit = document.createElement('input')
+        titleEdit.setAttribute('name', 'titleEdit')
+        titleEdit.setAttribute('value', response.data[i].title)
+
+        let editBtn = document.createElement('button')
+        editBtn.setAttribute('value', 'Edit')
+
+        if (response.data[i].completed) {
+            title.style.textDecorationLine = 'line-through'
+        }
+        spanTitle.appendChild(title)
+        spanTitleEdit.appendChild(titleEdit)
+        
+        li.appendChild(spanTitle)
+        li.appendChild(spanTitleEdit)
+
+
+
+
+
+
+
         let description = document.createElement('h4')
         let img = document.createElement('img')
 
@@ -36,6 +69,8 @@ function showTodos(response) {
             alert('click')
         }
 
+        
+    
         mainDiv.style.border = "3px dashed black"
         mainDiv.style.width = "600px"
 
@@ -49,7 +84,7 @@ function showTodos(response) {
         rightDiv.style.margin = "0px"
         rightDiv.style.width = "100px"
 
-        title.textContent = response.data[i].title
+
 
         description.textContent = response.data[i].description
 
@@ -61,10 +96,7 @@ function showTodos(response) {
             img.style.height = "70px"
         }
 
-        if (response.data[i].completed) {
-            title.style.textDecorationLine = 'line-through'
-        }
-        li.appendChild(title)
+
 
         if (response.data[i].description !== undefined) {
             li.appendChild(description)
