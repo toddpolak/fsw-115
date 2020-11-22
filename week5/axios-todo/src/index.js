@@ -66,12 +66,10 @@ function showTodos(response) {
         mainDiv.style.border = "1px double lightgray"
         mainDiv.style.width = "550px"
 
-        //leftDiv.style.border = "1px solid red"
         leftDiv.style.display = "inline-block"
         leftDiv.style.margin = "0px"
         leftDiv.style.width = "400px"
 
-        //rightDiv.style.border = "3px solid green"
         rightDiv.style.display = "inline-block"
         rightDiv.style.margin = "0px"
         rightDiv.style.width = "100px"
