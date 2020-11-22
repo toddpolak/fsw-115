@@ -118,4 +118,6 @@ todoForm.addEventListener("submit", function(event) {
     todoForm.price.value = ''
     todoForm.description.value = ''
     todoForm.imageUrl.value = ''
+
+    window.scrollTo(0,document.body.scrollHeight);
 })
