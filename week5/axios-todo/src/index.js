@@ -1,12 +1,14 @@
 const todoForm = document.todoForm
 const content = document.getElementById('content')
 
+getTodos()
+
 function getTodos() {
     axios.get('https://api.vschool.io/toddpolak/todo/')
-    .then(response => {
-        showTodos(response)
-    })
-    .catch(error => console.log(error))
+        .then(response => {
+            showTodos(response)
+        })
+        .catch(error => console.log(error))
 }
 
 function clearTodos() {
@@ -61,15 +63,15 @@ function showTodos(response) {
                 .catch(error => console.log(error))
         }
 
-        mainDiv.style.border = "3px dashed black"
-        mainDiv.style.width = "600px"
+        mainDiv.style.border = "1px double lightgray"
+        mainDiv.style.width = "550px"
 
-        leftDiv.style.border = "1px solid red"
+        //leftDiv.style.border = "1px solid red"
         leftDiv.style.display = "inline-block"
         leftDiv.style.margin = "0px"
         leftDiv.style.width = "400px"
 
-        rightDiv.style.border = "3px solid green"
+        //rightDiv.style.border = "3px solid green"
         rightDiv.style.display = "inline-block"
         rightDiv.style.margin = "0px"
         rightDiv.style.width = "100px"
@@ -78,13 +80,13 @@ function showTodos(response) {
 
         if (response.data[i].imgUrl !== undefined) {
             img.src = response.data[i].imgUrl
-            img.style.width = "60px"
-            img.style.height = "60px"
+            img.style.width = "100px"
+            img.style.height = "100px"
         }
 
+        leftDiv.appendChild(checkbox)
         leftDiv.appendChild(title)
         leftDiv.appendChild(description)
-        leftDiv.appendChild(checkbox)
         leftDiv.appendChild(deleteBtn)
 
         rightDiv.appendChild(img)
@@ -96,8 +98,6 @@ function showTodos(response) {
     }
 }
 
-getTodos()
-
 todoForm.addEventListener("submit", function(event) {
     event.preventDefault()
     
@@ -105,7 +105,7 @@ todoForm.addEventListener("submit", function(event) {
         title: todoForm.title.value,
         price: todoForm.price.value,
         description: todoForm.description.value,
-        imageUrl: todoForm.imageUrl.value
+        imgUrl: todoForm.imageUrl.value
     }
 
     axios.post('https://api.vschool.io/toddpolak/todo/', newTodo)
@@ -113,4 +113,9 @@ todoForm.addEventListener("submit", function(event) {
             getTodos()
     })
         .catch(error => console.log(error))
+
+    todoForm.title.value = ''
+    todoForm.price.value = ''
+    todoForm.description.value = ''
+    todoForm.imageUrl.value = ''
 })

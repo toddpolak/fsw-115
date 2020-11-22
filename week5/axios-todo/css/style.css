@@ -8,12 +8,16 @@ header {
 
 main {
     width: 100%;
+    /*
     border: 1px solid black;
+    */
 }
 
 main div {
     padding: 10px;
+    /*
     border: 1px solid red;
+    */
     width: 500px;
     margin: auto;
 }
@@ -22,13 +26,17 @@ main div {
     padding: 20px;
     width: 500px;
     margin: 0 auto;
+    /*
     border: 1px solid black;
+    */
 }
 
 #content {
     width: 500px;
     margin: auto;
+    /*
     border: 3px solid black;
+    */
 }
 
 input[name="title"] {
@@ -45,6 +53,10 @@ textarea[name="description"] {
 
 input[name="imageUrl"] {
     width: 358px;
+}
+
+button {
+    background-color: salmon;
 }
 
 footer {
