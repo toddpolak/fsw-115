@@ -8,8 +8,11 @@ class TodoEntry extends React.Component {
         
         this.state = {
             todos: [],
-            id: ''
+            id: '',
+            title: ''
         }
+
+        this.titleChangeHandler = this.titleChangeHandler.bind(this)
 
         /*
         this.state = {
@@ -55,12 +58,13 @@ class TodoEntry extends React.Component {
     }
 
     editButtonClickHandler(todo) {
-
-        console.log(todo._id)
-
         this.setState({
           id: todo._id
         });
+    }
+
+    titleChangeHandler(event) {
+
     }
 
     titleRenderer(todo, fieldName) {
@@ -70,7 +74,7 @@ class TodoEntry extends React.Component {
                     <input type="text"
                         id={todo._id}
                         value={todo.title}
-                        onChange={() => console.log('VALUE CHANGED')} />
+                        onChange={this.titleChangeHandler} />
                 </div>
             )
         }
