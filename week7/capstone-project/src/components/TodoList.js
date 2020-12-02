@@ -12,17 +12,9 @@ class TodoEntry extends React.Component {
             title: ''
         }
 
+        this.editButtonClickHandler = this.editButtonClickHandler.bind(this)
         this.titleChangeHandler = this.titleChangeHandler.bind(this)
-
-        /*
-        this.state = {
-            todos: [],
-            title: '',
-            description: ''
-        }
-        this.handleChange = this.handleChange.bind(this)
-        this.handleClick = this.handleClick.bind(this)
-        */
+        this.saveButtonClickHandler = this.saveButtonClickHandler.bind(this)
     }
 
     componentDidMount() {
@@ -39,8 +31,8 @@ class TodoEntry extends React.Component {
             const cancelButtonId = `cancel-${todo._id}`
             return (
                 <div>
-                    <button id={saveButtonId}
-                        onClick={() => console.log('SAVE CLICKED')}>
+                    <button id={todo._id}
+                        onClick={this.saveButtonClickHandler}>
                         Save
                     </button>
                     <button id={cancelButtonId}
@@ -59,11 +51,23 @@ class TodoEntry extends React.Component {
 
     editButtonClickHandler(todo) {
         this.setState({
-          id: todo._id
+          id: todo._id,
+          title: todo.title
         });
     }
 
     titleChangeHandler(event) {
+        console.log(event.target.value)
+        this.setState({title: event.target.value})
+    }
+
+    saveButtonClickHandler(event) {
+
+        console.log('event.target.id: ', event.target.id)
+
+        axios.put('https://api.vschool.io/toddpolak/todo/' + event.target.id, {
+                'title': this.state.title
+        })
 
     }
 
@@ -73,7 +77,7 @@ class TodoEntry extends React.Component {
                 <div>
                     <input type="text"
                         id={todo._id}
-                        value={todo.title}
+                        value={this.state.title}
                         onChange={this.titleChangeHandler} />
                 </div>
             )
@@ -84,6 +88,8 @@ class TodoEntry extends React.Component {
     }
 
     render() {
+
+        console.log('this.state.todos: ', this.state.todos)
 
         return (
             <ul>
