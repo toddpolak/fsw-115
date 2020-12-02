@@ -11,13 +11,39 @@ main {
 }
 
 main div {
-    width: 650px;
+    width: 500px;
     margin: auto;
-    padding: 10px;
+    padding: 5px;
+}
+
+.todoForm {
+    padding: 20px;
+    width: 500px;
+    margin: 0 auto;
 }
 
 #content {
-    border: 1px solid black;
+    width: 500px;
+    margin: auto;
+}
+
+input[name="title"] {
+    width: 300px;
+}
+
+input[name="price"] {
+    width: 123px;
+}
+
+textarea[name="description"] {
+    resize: none;
+}
+
+input[name="imageUrl"] {
+    width: 358px;
+}
+
+button {
     background-color: salmon;
 }
 

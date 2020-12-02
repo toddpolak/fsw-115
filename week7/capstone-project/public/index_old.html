@@ -4,19 +4,21 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="./css/style.css">
-        <title>Capstone Project</title>
+        <title>Axios Todo</title>
     </head>
     <body>
         <header>
-            <h1>Capstone Project</h1>
+            <h1>Axios Todo</h1>
         </header>
         <main>
             <div>
                 <div class="todoForm">
                     <form name="todoForm">
-                        <div><input name="title" placeholder="Title" /></div>
-                        <div><textarea name="description" rows="4" cols="40" placeholder="Description"></textarea></div>
-                        <div><button>Add Item</button></div>
+                        <input name="title" placeholder="Title" />
+                        <input type="number" name="price" placeholder="Price" />
+                        <textarea name="description" rows="4" cols="60" placeholder="Description"></textarea>
+                        <input name="imageUrl" placeholder="Image URL" />
+                        <button>Add Todo</button>
                     </form>
                 </div>
                 <div id="content"></div>
