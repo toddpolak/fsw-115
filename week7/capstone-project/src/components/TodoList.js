@@ -9,12 +9,14 @@ class TodoEntry extends React.Component {
             todos: [],
             id: '',
             title: '',
-            editTitle: ''
+            description: '',
+            editTitle: '',
+            editDescription: ''
         }
-        this.entryTitleChangeHandler = this.entryTitleChangeHandler.bind(this)
+        this.entryInputChangeHandler = this.entryInputChangeHandler.bind(this)
         this.entrySaveClickHandler = this.entrySaveClickHandler.bind(this)
         this.editClickHandler = this.editClickHandler.bind(this)
-        this.editTitleChangeHandler = this.editTitleChangeHandler.bind(this)
+        this.editInputChangeHandler = this.editInputChangeHandler.bind(this)
         this.editSaveClickHandler = this.editSaveClickHandler.bind(this)
         this.editCancelClickHandler = this.editCancelClickHandler.bind(this)
         this.deleteClickHandler = this.deleteClickHandler.bind(this)
@@ -28,7 +30,7 @@ class TodoEntry extends React.Component {
             })
     }
 
-    entryTitleChangeHandler(event) {
+    entryInputChangeHandler(event) {
         const {name, value} = event.target
         this.setState({
             [name]: value
@@ -39,7 +41,8 @@ class TodoEntry extends React.Component {
         event.preventDefault()
 
         axios.post('https://api.vschool.io/toddpolak/todo/', {
-            title: this.state.title
+            title: this.state.title,
+            description: this.state.description
         })
         .then(async () => {
             await axios.get('https://api.vschool.io/toddpolak/todo/')
@@ -47,7 +50,8 @@ class TodoEntry extends React.Component {
                     let todos = response.data
                     this.setState({todos})
                     this.setState({
-                        title: ''
+                        title: '',
+                        description: ''
                     })
                 })
         })
@@ -83,7 +87,8 @@ class TodoEntry extends React.Component {
     editClickHandler(todo) {
         this.setState({
           id: todo._id,
-          editTitle: todo.title
+          editTitle: todo.title,
+          editDescription: todo.description
         });
     }
 
@@ -98,13 +103,17 @@ class TodoEntry extends React.Component {
             })
     }
 
-    editTitleChangeHandler(event) {
-        this.setState({editTitle: event.target.value})
+    editInputChangeHandler(event) {
+        this.setState({
+            editTitle: event.target.value,
+            editDescription: event.target.value
+        })
     }
 
     editSaveClickHandler(event) {
         axios.put('https://api.vschool.io/toddpolak/todo/' + event.target.id, {
-            title: this.state.editTitle
+            title: this.state.editTitle,
+            description: this.state.editDescription
         })
         .then(async () => {
             await axios.get('https://api.vschool.io/toddpolak/todo/')
@@ -120,20 +129,29 @@ class TodoEntry extends React.Component {
         this.setState({id: ''})
     }
 
-    titleRenderer(todo) {
+    displayRenderer(todo) {
 
         if (this.state.id && this.state.id === todo._id) {
             return (
                 <div>
                     <input type="text"
                         id={todo._id}
+                        name="title"
                         value={this.state.editTitle}
-                        onChange={this.editTitleChangeHandler} />
+                        onChange={this.editInputChangeHandler} />
+                    <textarea
+                        id={todo._id}
+                        name="description"
+                        value={this.state.editDescription}
+                        onChange={this.editInputChangeHandler} />
                 </div>
             )
         }
         return (
-            <div>{todo.title}</div>
+            <div>
+                <div>{todo.title}</div>
+                <div>{todo.description}</div>
+            </div>
         )
     }
 
@@ -145,13 +163,22 @@ class TodoEntry extends React.Component {
 
                 <div>
                     <form>
-                    <input 
-                        type="text" 
-                        value={this.state.title} 
-                        name="title" 
-                        placeholder="Title" 
-                        onChange={this.entryTitleChangeHandler} />
+                        <input 
+                            type="text" 
+                            value={this.state.title} 
+                            name="title" 
+                            placeholder="Title" 
+                            onChange={this.entryInputChangeHandler} />
+                        <textarea 
+                            style={{resize: "none"}}
+                            rows={6} 
+                            cols={56} 
+                            value={this.state.description} 
+                            name="description" 
+                            placeholder="Description" 
+                            onChange={this.entryInputChangeHandler} />
                     </form>
+                    
                 </div>
 
                 <div>
@@ -163,8 +190,8 @@ class TodoEntry extends React.Component {
 
                     <li key={index}>
 
-                        {this.titleRenderer(todo, 'title')}
-                        {this.editRenderer(todo, 'title')}
+                        {this.displayRenderer(todo)}
+                        {this.editRenderer(todo)}
 
                     </li>
                     
