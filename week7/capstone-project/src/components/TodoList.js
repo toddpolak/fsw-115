@@ -8,15 +8,19 @@ class TodoEntry extends React.Component {
         this.state = {
             todos: [],
             id: '',
-            title: ''
+            title: '',
+            editTitle: ''
         }
-        this.editButtonClickHandler = this.editButtonClickHandler.bind(this)
-        this.titleChangeHandler = this.titleChangeHandler.bind(this)
-        this.saveButtonClickHandler = this.saveButtonClickHandler.bind(this)
+        this.entryTitleChangeHandler = this.entryTitleChangeHandler.bind(this)
+        this.entrySaveClickHandler = this.entrySaveClickHandler.bind(this)
+        this.editClickHandler = this.editClickHandler.bind(this)
+        this.editTitleChangeHandler = this.editTitleChangeHandler.bind(this)
+        this.editSaveClickHandler = this.editSaveClickHandler.bind(this)
+        this.editCancelClickHandler = this.editCancelClickHandler.bind(this)
+        this.deleteClickHandler = this.deleteClickHandler.bind(this)
     }
 
     componentDidMount() {
-
         axios.get('https://api.vschool.io/toddpolak/todo/')
             .then(response => {
                 let todos = response.data
@@ -24,60 +28,96 @@ class TodoEntry extends React.Component {
             })
     }
 
-    editRenderer(todo, fieldName) {
+    entryTitleChangeHandler(event) {
+        const {name, value} = event.target
+        this.setState({
+            [name]: value
+        })
+    }
+
+    entrySaveClickHandler(event) {
+        event.preventDefault()
+
+        axios.post('https://api.vschool.io/toddpolak/todo/', {
+            title: this.state.title
+        })
+        .then(async () => {
+            await axios.get('https://api.vschool.io/toddpolak/todo/')
+                .then(response => {
+                    let todos = response.data
+                    this.setState({todos})
+                    this.setState({
+                        title: ''
+                    })
+                })
+        })
+    }
+
+    editRenderer(todo) {
         if (this.state.id && this.state.id === todo._id) {
             return (
                 <div>
                     <button id={todo._id}
-                        onClick={this.saveButtonClickHandler}>
+                        onClick={this.editSaveClickHandler}>
                         Save
                     </button>
                     <button 
-                        onClick={() => console.log('CANCEL CLICKED')}>
+                        onClick={this.editCancelClickHandler}>
                         Cancel
                     </button>
                 </div>
             )
         }
         return (
-            <button onClick={() => this.editButtonClickHandler(todo)}>
-                Edit
-            </button>
+            <div>
+                <button onClick={() => this.editClickHandler(todo)}>
+                    Edit
+                </button>
+                <button onClick={() => this.deleteClickHandler(todo)}>
+                    Delete
+                </button>
+            </div>
         )
     }
 
-    editButtonClickHandler(todo) {
+    editClickHandler(todo) {
         this.setState({
           id: todo._id,
-          title: todo.title
+          editTitle: todo.title
         });
     }
 
-    titleChangeHandler(event) {
-        this.setState({title: event.target.value})
+    deleteClickHandler(todo) {
+        axios.delete('https://api.vschool.io/toddpolak/todo/' + todo._id)
+            .then(async () => {
+                await axios.get('https://api.vschool.io/toddpolak/todo/')
+                    .then(response => {
+                        let todos = response.data
+                        this.setState({todos})
+                    })
+            })
     }
 
-    saveButtonClickHandler(event) {
+    editTitleChangeHandler(event) {
+        this.setState({editTitle: event.target.value})
+    }
 
-        const updates = {
-            title: this.state.title
-        }
+    editSaveClickHandler(event) {
+        axios.put('https://api.vschool.io/toddpolak/todo/' + event.target.id, {
+            title: this.state.editTitle
+        })
+        .then(async () => {
+            await axios.get('https://api.vschool.io/toddpolak/todo/')
+                .then(response => {
+                    let todos = response.data
+                    this.setState({todos})
+                    this.setState({id: ''})
+                })
+        })
+    }
 
-        axios.put('https://api.vschool.io/toddpolak/todo/' + event.target.id, updates)
-
-        
-
-            
-            .then(async response => {
-                const response_1 = await axios.get('https://api.vschool.io/toddpolak/todo/')
-                let todos = response_1.data
-                this.setState({ todos })
-            })
-            
-
-        this.setState({ id: ''})
-
-
+    editCancelClickHandler() {
+        this.setState({id: ''})
     }
 
     titleRenderer(todo) {
@@ -87,8 +127,8 @@ class TodoEntry extends React.Component {
                 <div>
                     <input type="text"
                         id={todo._id}
-                        value={this.state.title}
-                        onChange={this.titleChangeHandler} />
+                        value={this.state.editTitle}
+                        onChange={this.editTitleChangeHandler} />
                 </div>
             )
         }
@@ -100,18 +140,38 @@ class TodoEntry extends React.Component {
     render() {
 
         return (
-            <ul>
-                {this.state.todos.map((todo, index) => 
 
-                <li key={index}>
+            <div>
 
-                    {this.titleRenderer(todo, 'title')}
-                    {this.editRenderer(todo, 'title')}
+                <div>
+                    <form>
+                    <input 
+                        type="text" 
+                        value={this.state.title} 
+                        name="title" 
+                        placeholder="Title" 
+                        onChange={this.entryTitleChangeHandler} />
+                    </form>
+                </div>
 
-                </li>
-                
-                )}
-            </ul>
+                <div>
+                    <button onClick={this.entrySaveClickHandler}>Save</button>
+                </div>
+
+                <ul>
+                    {this.state.todos.map((todo, index) => 
+
+                    <li key={index}>
+
+                        {this.titleRenderer(todo, 'title')}
+                        {this.editRenderer(todo, 'title')}
+
+                    </li>
+                    
+                    )}
+                </ul>
+
+            </div>
         )
     }
 }
