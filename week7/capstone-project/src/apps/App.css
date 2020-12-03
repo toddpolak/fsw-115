@@ -2,7 +2,6 @@
     width: 500px;
     margin: auto;
     padding: 20px;
-    background-color: lightsteelblue;
     border: 1px solid black
 }
 
@@ -11,7 +10,15 @@ button {
     color: white;
 }
   
-  button:hover {
+button:hover {
     background-color: lightgray;
     color: black;
+}
+
+.todo_display {
+    padding: 20px;
+}
+
+.todo_edit {
+    padding: 20px;
 }

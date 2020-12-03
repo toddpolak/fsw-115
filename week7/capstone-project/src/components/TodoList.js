@@ -104,10 +104,16 @@ class TodoEntry extends React.Component {
     }
 
     editInputChangeHandler(event) {
+        const {name, value} = event.target
+        this.setState({
+            [name]: value
+        })
+        /*
         this.setState({
             editTitle: event.target.value,
             editDescription: event.target.value
         })
+        */
     }
 
     editSaveClickHandler(event) {
@@ -130,25 +136,29 @@ class TodoEntry extends React.Component {
     }
 
     displayRenderer(todo) {
-
         if (this.state.id && this.state.id === todo._id) {
             return (
-                <div>
-                    <input type="text"
-                        id={todo._id}
-                        name="title"
-                        value={this.state.editTitle}
-                        onChange={this.editInputChangeHandler} />
-                    <textarea
-                        id={todo._id}
-                        name="description"
-                        value={this.state.editDescription}
-                        onChange={this.editInputChangeHandler} />
+                <div className='todo_edit'>
+                    <div>
+                        <input 
+                            type='text'
+                            id={todo._id}
+                            name='editTitle'
+                            value={this.state.editTitle}
+                            onChange={this.editInputChangeHandler} />
+                    </div>
+                    <div>
+                        <textarea
+                            id={todo._id}
+                            name='editDescription'
+                            value={this.state.editDescription}
+                            onChange={this.editInputChangeHandler} />
+                    </div>
                 </div>
             )
         }
         return (
-            <div>
+            <div className='todo_display'>
                 <div>{todo.title}</div>
                 <div>{todo.description}</div>
             </div>
@@ -185,18 +195,23 @@ class TodoEntry extends React.Component {
                     <button onClick={this.entrySaveClickHandler}>Save</button>
                 </div>
 
-                <ul>
+                <div>
                     {this.state.todos.map((todo, index) => 
 
-                    <li key={index}>
+                    <div key={index}>
+
+                        <div>
+                            <input
+                                type='checkbox' />
+                        </div>
 
                         {this.displayRenderer(todo)}
                         {this.editRenderer(todo)}
 
-                    </li>
+                    </div>
                     
                     )}
-                </ul>
+                </div>
 
             </div>
         )
