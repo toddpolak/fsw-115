@@ -108,12 +108,6 @@ class TodoEntry extends React.Component {
         this.setState({
             [name]: value
         })
-        /*
-        this.setState({
-            editTitle: event.target.value,
-            editDescription: event.target.value
-        })
-        */
     }
 
     editSaveClickHandler(event) {
@@ -140,6 +134,7 @@ class TodoEntry extends React.Component {
             return (
                 <div className='todo_edit'>
                     <div>
+                        <input type='checkbox' />
                         <input 
                             type='text'
                             id={todo._id}
@@ -159,7 +154,13 @@ class TodoEntry extends React.Component {
         }
         return (
             <div className='todo_display'>
-                <div>{todo.title}</div>
+                <div>
+                    
+                    <h2>
+                        <input type='checkbox' />
+                        {todo.title}
+                    </h2>
+                </div>
                 <div>{todo.description}</div>
             </div>
         )
@@ -170,7 +171,6 @@ class TodoEntry extends React.Component {
         return (
 
             <div>
-
                 <div>
                     <form>
                         <input 
@@ -188,31 +188,18 @@ class TodoEntry extends React.Component {
                             placeholder="Description" 
                             onChange={this.entryInputChangeHandler} />
                     </form>
-                    
                 </div>
-
                 <div>
-                    <button onClick={this.entrySaveClickHandler}>Save</button>
+                    <button onClick={this.entrySaveClickHandler}>Add Todo</button>
                 </div>
-
                 <div>
                     {this.state.todos.map((todo, index) => 
-
-                    <div key={index}>
-
-                        <div>
-                            <input
-                                type='checkbox' />
+                        <div key={index}>
+                            {this.displayRenderer(todo)}
+                            {this.editRenderer(todo)}
                         </div>
-
-                        {this.displayRenderer(todo)}
-                        {this.editRenderer(todo)}
-
-                    </div>
-                    
                     )}
                 </div>
-
             </div>
         )
     }
