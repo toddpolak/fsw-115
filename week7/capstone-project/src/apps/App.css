@@ -1,12 +1,28 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: teal;
+}
+
 .app {
+    border-radius: 5px;
+    background-color: white;
     width: 500px;
     margin: auto;
     padding: 20px;
-    border: 1px solid black
+    border: 3px solid black
+}
+
+.todo-title {
+    cursor: pointer;
+}
+
+.todo-title-completed {
+    cursor: pointer;
+    text-decoration: line-through;
 }
 
 button {
-    background-color: firebrick;
+    background-color: black;
     color: white;
 }
   
@@ -16,9 +32,23 @@ button:hover {
 }
 
 .todo_display {
+    border: 1px solid black;
     padding: 20px;
 }
 
 .todo_edit {
+    border: 1px solid black;
     padding: 20px;
+}
+
+textarea {
+    background-color: white;
+    color: white;
+    resize: none;
+    overflow: hidden;
+    border: 0px none;
+    height: 70px;
+    width: 400px;
+    font-size: large;
+    font-family: Arial, Helvetica, sans-serif;
 }

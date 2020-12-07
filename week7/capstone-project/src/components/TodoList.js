@@ -10,7 +10,6 @@ class TodoEntry extends React.Component {
             id: '',
             title: '',
             description: '',
-            //completed: false,
             editTitle: '',
             editDescription: ''
         }
@@ -21,13 +20,14 @@ class TodoEntry extends React.Component {
         this.editSaveClickHandler = this.editSaveClickHandler.bind(this)
         this.editCancelClickHandler = this.editCancelClickHandler.bind(this)
         this.deleteClickHandler = this.deleteClickHandler.bind(this)
-        this.handleCheckbox = this.handleCheckbox.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
     componentDidMount() {
         axios.get('https://api.vschool.io/toddpolak/todo/')
             .then(response => {
                 let todos = response.data
+                todos.reverse()
                 this.setState({todos})
             })
     }
@@ -50,6 +50,7 @@ class TodoEntry extends React.Component {
             await axios.get('https://api.vschool.io/toddpolak/todo/')
                 .then(response => {
                     let todos = response.data
+                    todos.reverse()
                     this.setState({todos})
                     this.setState({
                         title: '',
@@ -100,6 +101,7 @@ class TodoEntry extends React.Component {
                 await axios.get('https://api.vschool.io/toddpolak/todo/')
                     .then(response => {
                         let todos = response.data
+                        todos.reverse()
                         this.setState({todos})
                     })
             })
@@ -121,6 +123,7 @@ class TodoEntry extends React.Component {
             await axios.get('https://api.vschool.io/toddpolak/todo/')
                 .then(response => {
                     let todos = response.data
+                    todos.reverse()
                     this.setState({todos})
                     this.setState({id: ''})
                 })
@@ -131,13 +134,14 @@ class TodoEntry extends React.Component {
         this.setState({id: ''})
     }
 
-    handleCheckbox(todo) {
+    handleClick(todo) {
         axios.put('https://api.vschool.io/toddpolak/todo/' + todo._id, 
         {'completed': !todo.completed})
             .then(async () => {
                 await axios.get('https://api.vschool.io/toddpolak/todo/')
                     .then(response => {
                         let todos = response.data
+                        todos.reverse()
                         this.setState({todos})
                         this.setState({id: ''})
                     })
@@ -160,9 +164,11 @@ class TodoEntry extends React.Component {
                         <textarea
                             id={todo._id}
                             name='editDescription'
+                            placeholder='Description'
                             value={this.state.editDescription}
                             onChange={this.editInputChangeHandler} />
                     </div>
+                    {this.editRenderer(todo)}
                 </div>
             )
         }
@@ -170,16 +176,15 @@ class TodoEntry extends React.Component {
             <div className='todo_display'>
                 <div>
                     <h2>
-                        <label>
-                        <input 
-                            type='checkbox'
-                            checked={todo.completed}
-                            onChange={() => this.handleCheckbox(todo)} />
-                        {todo.title}
+                        <label 
+                            className={todo.completed ? 'todo-title-completed' : 'todo-title'}
+                            onClick={() => this.handleClick(todo)}>
+                            {todo.title}
                         </label>
                     </h2>
                 </div>
                 <div>{todo.description}</div>
+                {this.editRenderer(todo)}
             </div>
         )
     }
@@ -187,7 +192,6 @@ class TodoEntry extends React.Component {
     render() {
 
         return (
-
             <div>
                 <div>
                     <form>
@@ -210,11 +214,10 @@ class TodoEntry extends React.Component {
                 <div>
                     <button onClick={this.entrySaveClickHandler}>Add Todo</button>
                 </div>
-                <div>
+                <div className='todo_display'>
                     {this.state.todos.map((todo, index) => 
                         <div key={index}>
                             {this.displayRenderer(todo)}
-                            {this.editRenderer(todo)}
                         </div>
                     )}
                 </div>
