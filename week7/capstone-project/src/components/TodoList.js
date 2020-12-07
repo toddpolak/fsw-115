@@ -10,6 +10,7 @@ class TodoEntry extends React.Component {
             id: '',
             title: '',
             description: '',
+            //completed: false,
             editTitle: '',
             editDescription: ''
         }
@@ -20,6 +21,7 @@ class TodoEntry extends React.Component {
         this.editSaveClickHandler = this.editSaveClickHandler.bind(this)
         this.editCancelClickHandler = this.editCancelClickHandler.bind(this)
         this.deleteClickHandler = this.deleteClickHandler.bind(this)
+        this.handleCheckbox = this.handleCheckbox.bind(this)
     }
 
     componentDidMount() {
@@ -129,12 +131,24 @@ class TodoEntry extends React.Component {
         this.setState({id: ''})
     }
 
+    handleCheckbox(todo) {
+        axios.put('https://api.vschool.io/toddpolak/todo/' + todo._id, 
+        {'completed': !todo.completed})
+            .then(async () => {
+                await axios.get('https://api.vschool.io/toddpolak/todo/')
+                    .then(response => {
+                        let todos = response.data
+                        this.setState({todos})
+                        this.setState({id: ''})
+                    })
+            })
+    }
+
     displayRenderer(todo) {
         if (this.state.id && this.state.id === todo._id) {
             return (
                 <div className='todo_edit'>
                     <div>
-                        <input type='checkbox' />
                         <input 
                             type='text'
                             id={todo._id}
@@ -155,10 +169,14 @@ class TodoEntry extends React.Component {
         return (
             <div className='todo_display'>
                 <div>
-                    
                     <h2>
-                        <input type='checkbox' />
+                        <label>
+                        <input 
+                            type='checkbox'
+                            checked={todo.completed}
+                            onChange={() => this.handleCheckbox(todo)} />
                         {todo.title}
+                        </label>
                     </h2>
                 </div>
                 <div>{todo.description}</div>
