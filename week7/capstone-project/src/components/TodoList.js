@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {Component} from 'react'
 import axios from 'axios'
+import Todo from '../components/Todo'
 
-class TodoEntry extends React.Component {
+class TodoEntry extends Component {
     constructor() {
         super()
         
@@ -20,7 +21,7 @@ class TodoEntry extends React.Component {
         this.editSaveClickHandler = this.editSaveClickHandler.bind(this)
         this.editCancelClickHandler = this.editCancelClickHandler.bind(this)
         this.deleteClickHandler = this.deleteClickHandler.bind(this)
-        this.handleClick = this.handleClick.bind(this)
+        this.titleClick = this.titleClick.bind(this)
     }
 
     componentDidMount() {
@@ -58,33 +59,6 @@ class TodoEntry extends React.Component {
                     })
                 })
         })
-    }
-
-    editRenderer(todo) {
-        if (this.state.id && this.state.id === todo._id) {
-            return (
-                <div>
-                    <button id={todo._id}
-                        onClick={this.editSaveClickHandler}>
-                        Save
-                    </button>
-                    <button 
-                        onClick={this.editCancelClickHandler}>
-                        Cancel
-                    </button>
-                </div>
-            )
-        }
-        return (
-            <div>
-                <button onClick={() => this.editClickHandler(todo)}>
-                    Edit
-                </button>
-                <button onClick={() => this.deleteClickHandler(todo)}>
-                    Delete
-                </button>
-            </div>
-        )
     }
 
     editClickHandler(todo) {
@@ -134,7 +108,7 @@ class TodoEntry extends React.Component {
         this.setState({id: ''})
     }
 
-    handleClick(todo) {
+    titleClick(todo) {
         axios.put('https://api.vschool.io/toddpolak/todo/' + todo._id, 
         {'completed': !todo.completed})
             .then(async () => {
@@ -148,76 +122,44 @@ class TodoEntry extends React.Component {
             })
     }
 
-    displayRenderer(todo) {
-        if (this.state.id && this.state.id === todo._id) {
-            return (
-                <div className='todo_edit'>
-                    <div>
-                        <input 
-                            type='text'
-                            id={todo._id}
-                            name='editTitle'
-                            value={this.state.editTitle}
-                            onChange={this.editInputChangeHandler} />
-                    </div>
-                    <div>
-                        <textarea
-                            id={todo._id}
-                            name='editDescription'
-                            placeholder='Description'
-                            value={this.state.editDescription}
-                            onChange={this.editInputChangeHandler} />
-                    </div>
-                    {this.editRenderer(todo)}
-                </div>
-            )
-        }
-        return (
-            <div className='todo_display'>
-                <div>
-                    <h2>
-                        <label 
-                            className={todo.completed ? 'todo-title-completed' : 'todo-title'}
-                            onClick={() => this.handleClick(todo)}>
-                            {todo.title}
-                        </label>
-                    </h2>
-                </div>
-                <div>{todo.description}</div>
-                {this.editRenderer(todo)}
-            </div>
-        )
-    }
-
     render() {
-
         return (
-            <div>
+            <div className='todo-input'>
                 <div>
                     <form>
-                        <input 
-                            type="text" 
+                        <textarea
                             value={this.state.title} 
                             name="title" 
                             placeholder="Title" 
+                            className='no-outline'
                             onChange={this.entryInputChangeHandler} />
                         <textarea 
-                            style={{resize: "none"}}
-                            rows={6} 
-                            cols={56} 
                             value={this.state.description} 
                             name="description" 
-                            placeholder="Description" 
+                            placeholder="Description"
+                            className='no-outline'
                             onChange={this.entryInputChangeHandler} />
                     </form>
                 </div>
-                <div>
+                <div className='todo-submit'>
                     <button onClick={this.entrySaveClickHandler}>Add Todo</button>
+                    <hr />
                 </div>
-                <div className='todo_display'>
+                <div>
                     {this.state.todos.map((todo, index) => 
                         <div key={index}>
-                            {this.displayRenderer(todo)}
+                            <Todo 
+                                todo={todo}
+                                id={this.state.id}
+                                editTitle={this.state.editTitle}
+                                editDescription={this.state.editDescription}
+                                titleClick={this.titleClick}
+                                editClickHandler={this.editClickHandler}
+                                deleteClickHandler={this.deleteClickHandler}
+                                editInputChangeHandler={this.editInputChangeHandler}    
+                                editSaveClickHandler={this.editSaveClickHandler}
+                                editCancelClickHandler={this.editClickHandler}
+                            />
                         </div>
                     )}
                 </div>

@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: teal;
+    background-color: rgb(93, 114, 114);
 }
 
 .app {
@@ -22,28 +22,33 @@ body {
 }
 
 button {
-    background-color: black;
-    color: white;
-}
-  
-button:hover {
+    border-radius: 3px;
     background-color: lightgray;
     color: black;
 }
+  
+button:hover {
+    background-color: #fae18d;
+    color: black;
+}
 
-.todo_display {
+.todo {
     border: 1px solid black;
+    padding: 10px;
+}
+
+.todo-input {
     padding: 20px;
 }
 
-.todo_edit {
-    border: 1px solid black;
-    padding: 20px;
+.todo-submit {
+    width: 400px;
+    text-align: left;
 }
 
 textarea {
     background-color: white;
-    color: white;
+    color: black;
     resize: none;
     overflow: hidden;
     border: 0px none;
@@ -51,4 +56,9 @@ textarea {
     width: 400px;
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
+}
+
+.no-outline:focus {
+    border: 0px none;
+    outline: none;
 }
