@@ -5,7 +5,7 @@ function displayRenderer(
     id, 
     editTitle, 
     editDescription,
-    handleClick,
+    titleClick,
     editInputChangeHandler) {
     if (id && id === todo._id) {
         return (
@@ -36,7 +36,7 @@ function displayRenderer(
                 <h2>
                     <label 
                         className={todo.completed ? 'todo-title-completed' : 'todo-title'}
-                        onClick={() => handleClick(todo)}>
+                        onClick={() => titleClick(todo)}>
                         {todo.title}
                     </label>
                 </h2>
@@ -56,7 +56,7 @@ function editRenderer(
     ) {
     if (id && id === todo._id) {
         return (
-            <div>
+            <div className='edit-btns'>
                 <button id={todo._id}
                     onClick={editSaveClickHandler}>
                     Save
@@ -69,7 +69,7 @@ function editRenderer(
         )
     }
     return (
-        <div>
+        <div className='edit-btns'>
             <button onClick={() => editClickHandler(todo)}>
                 Edit
             </button>
@@ -88,7 +88,7 @@ function Todo(props) {
                 props.id,
                 props.editTitle,
                 props.editDescription,
-                props.handleClick,
+                props.titleClick,
                 props.editInputChangeHandler
             )}
             {editRenderer(

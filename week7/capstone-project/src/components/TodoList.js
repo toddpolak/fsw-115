@@ -143,7 +143,6 @@ class TodoEntry extends Component {
                 </div>
                 <div className='todo-submit'>
                     <button onClick={this.entrySaveClickHandler}>Add Todo</button>
-                    <hr />
                 </div>
                 <div>
                     {this.state.todos.map((todo, index) => 

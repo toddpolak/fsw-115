@@ -22,18 +22,16 @@ body {
 }
 
 button {
-    border-radius: 3px;
     background-color: lightgray;
     color: black;
 }
   
 button:hover {
-    background-color: #fae18d;
-    color: black;
+    background-color: darkgray;
+    color: white;
 }
 
 .todo {
-    border: 1px solid black;
     padding: 10px;
 }
 
@@ -43,16 +41,14 @@ button:hover {
 
 .todo-submit {
     width: 400px;
-    text-align: left;
+    text-align: center;
 }
 
 textarea {
-    background-color: white;
-    color: black;
     resize: none;
     overflow: hidden;
     border: 0px none;
-    height: 70px;
+    height: 40px;
     width: 400px;
     font-size: large;
     font-family: Arial, Helvetica, sans-serif;
@@ -61,4 +57,8 @@ textarea {
 .no-outline:focus {
     border: 0px none;
     outline: none;
+}
+
+.edit-btns {
+    padding: 20px;
 }
