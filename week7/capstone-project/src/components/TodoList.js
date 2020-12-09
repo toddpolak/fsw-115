@@ -44,22 +44,26 @@ class TodoList extends Component {
     entrySaveClickHandler(event) {
         event.preventDefault()
 
-        axios.post('https://api.vschool.io/toddpolak/todo/', {
-            title: this.state.title,
-            description: this.state.description
-        })
-        .then(async () => {
-            await axios.get('https://api.vschool.io/toddpolak/todo/')
-                .then(response => {
-                    let todos = response.data
-                    todos.reverse()
-                    this.setState({todos})
-                    this.setState({
-                        title: '',
-                        description: ''
+        if (this.state.title !== '') {
+            axios.post('https://api.vschool.io/toddpolak/todo/', {
+                title: this.state.title,
+                description: this.state.description
+            })
+            .then(async () => {
+                await axios.get('https://api.vschool.io/toddpolak/todo/')
+                    .then(response => {
+                        let todos = response.data
+                        todos.reverse()
+                        this.setState({todos})
+                        this.setState({
+                            title: '',
+                            description: ''
+                        })
                     })
-                })
-        })
+            })
+        } else {
+            alert('Title cannot be blank')
+        }
     }
 
     editClickHandler(todo) {
