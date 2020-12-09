@@ -31,7 +31,7 @@ function displayRenderer(
         )
     }
     return (
-        <div>
+        <div className='todo'>
             <div>
                 <h2>
                     <label 
@@ -82,7 +82,7 @@ function editRenderer(
 
 function Todo(props) {
     return (
-        <div className='todo'>
+        <div>
             {displayRenderer(
                 props.todo, 
                 props.id,

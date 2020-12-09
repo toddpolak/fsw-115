@@ -1,6 +1,6 @@
 body {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(143, 185, 196);
+    background-color: rgb(111, 126, 123);
 }
 
 .app {
@@ -23,7 +23,7 @@ body {
 .todo-title-completed {
     cursor: pointer;
     text-decoration: line-through;
-    color: firebrick;
+    text-decoration-color: firebrick;
 }
 
 button {
@@ -37,7 +37,7 @@ button:hover {
 }
 
 .todo {
-    padding: 10px;
+    padding: 5px;
 }
 
 .todo-input {
