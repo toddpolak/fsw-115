@@ -1,8 +1,9 @@
 import React, {Component} from 'react'
 import axios from 'axios'
+import Entry from '../components/Entry'
 import Todo from '../components/Todo'
 
-class TodoEntry extends Component {
+class TodoList extends Component {
     constructor() {
         super()
         
@@ -124,26 +125,13 @@ class TodoEntry extends Component {
 
     render() {
         return (
-            <div className='todo-input'>
-                <div>
-                    <form>
-                        <textarea
-                            value={this.state.title} 
-                            name="title" 
-                            placeholder="Title" 
-                            className='no-outline'
-                            onChange={this.entryInputChangeHandler} />
-                        <textarea 
-                            value={this.state.description} 
-                            name="description" 
-                            placeholder="Description"
-                            className='no-outline'
-                            onChange={this.entryInputChangeHandler} />
-                    </form>
-                </div>
-                <div className='todo-submit'>
-                    <button onClick={this.entrySaveClickHandler}>Add Todo</button>
-                </div>
+            <div>
+                <Entry 
+                    title={this.state.title}
+                    description={this.state.description}
+                    entryInputChangeHandler={this.entryInputChangeHandler}
+                    entrySaveClickHandler={this.entrySaveClickHandler}
+                />
                 <div>
                     {this.state.todos.map((todo, index) => 
                         <div key={index}>
@@ -167,4 +155,4 @@ class TodoEntry extends Component {
     }
 }
 
-export default TodoEntry
+export default TodoList

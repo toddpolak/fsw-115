@@ -10,7 +10,7 @@ function displayRenderer(
     if (id && id === todo._id) {
         return (
             <div>
-                <div>
+                <div className='title-edit'>
                     <textarea 
                         id={todo._id}
                         name='editTitle'

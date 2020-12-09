@@ -27,7 +27,7 @@ button {
 }
   
 button:hover {
-    background-color: darkgray;
+    background-color: black;
     color: white;
 }
 
@@ -36,6 +36,8 @@ button:hover {
 }
 
 .todo-input {
+    border: 1px solid gray;
+    border-radius: 5px;
     padding: 20px;
 }
 
@@ -60,5 +62,9 @@ textarea {
 }
 
 .edit-btns {
+    padding: 20px;
+}
+
+.title-edit {
     padding: 20px;
 }
